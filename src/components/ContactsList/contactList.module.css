@@ -1,0 +1,42 @@
+.containerContacts {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    list-style: none;
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.titleCont {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: #545454;
+}
+
+.titleDesc {
+    width: 100%;
+    padding-top: 5px;
+}
+
+.btn {
+    padding: 4px;
+    margin-top: 5px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffff;
+    background-color: #545454;
+}
+
+.btn:hover,
+.btn:focus {
+    color: #545454;
+    background-color: #ffc4f8;
+    box-shadow: 0px 2px 2px rgb(167, 115, 161);
+}
