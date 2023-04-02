@@ -3,13 +3,13 @@ import { Component } from 'react';
 import PhonebookForm from './PhonebookForm/PhonebookForm';
 import ContactsList from './ContactsList/ContactsList';
 
-import data from '../data/data.json';
+import contactsList from '../data/data.json';
 import FilterContacts from './FilterContacts/FilterContacts';
 
 
 class App extends Component {
   state = {
-    contacts: data,
+    contacts: contactsList,
     filter: '',
   };
 
@@ -36,6 +36,19 @@ class App extends Component {
   inputFilterContacts = () => {
     const {contacts, filter} = this.state;
     return contacts.filter(el => el.name.toLowerCase().includes(filter));
+  }
+
+  componentDidMount() {
+    const contacts =
+      JSON.parse(localStorage.getItem('contacts')) || contactsList;
+
+    this.setState({ contacts });
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
   }
 
   render() {
