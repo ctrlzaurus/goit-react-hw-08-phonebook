@@ -1,9 +1,9 @@
 .containerContacts {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     list-style: none;
-    width: 400px;
+    width: 450px;
     margin: 0 auto;
     padding: 10px;
     text-align: center;
@@ -12,6 +12,7 @@
 .titleCont {
     margin-bottom: 10px;
     padding: 10px;
+    width: 200px;
     font-family: sans-serif;
     font-weight: 600;
     color: #545454;
