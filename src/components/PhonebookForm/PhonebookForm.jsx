@@ -22,6 +22,7 @@ class PhonebookForm extends Component {
         event.preventDefault();
         const contactId = {...this.state, id: shortid.generate()};
         this.props.addContacts(contactId);
+        event.target.reset();
     }
 
     static propTypes = {
