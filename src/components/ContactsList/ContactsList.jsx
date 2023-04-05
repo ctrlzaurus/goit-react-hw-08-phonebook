@@ -1,19 +1,16 @@
 import PropTypes from 'prop-types';
 
-import { Component } from 'react';
-
 import d from './contactList.module.css';
 
-class ContactsList extends Component {
-  render() {
+function ContactsList({contacts, removeBtn}) {
     return (
       <>
         <ul className={d.containerContacts}>
-          {this.props.contacts.map(({ name, number, id }) => (
+          {contacts.map(({ name, number, id }) => (
             <li className={d.titleCont} key={id}>
               <p className={d.titleDesc}>{name}</p>
               <p className={d.titleDesc}>{number}</p>
-              <button className={d.btn} onClick={(e) => this.props.removeBtn(id)}>
+              <button className={d.btn} onClick={(e) => removeBtn(id)}>
                 Remove
               </button>
             </li>
@@ -21,7 +18,6 @@ class ContactsList extends Component {
         </ul>
       </>
     );
-  }
 }
 
 ContactsList.propTypes = {

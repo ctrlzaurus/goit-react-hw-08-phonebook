@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 
 import shortid from 'shortid';
 
@@ -6,33 +6,41 @@ import PropTypes from 'prop-types';
 
 import d from './phonebookForm.module.css';
 
-class PhonebookForm extends Component {
-    state = {
-        name: '',
-        number: '',
-    }
+function PhonebookForm({addContacts}) {
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+    // state = {
+    //     name: '',
+    //     number: '',
+    // }
 
-    handleChange = (event) => {
-        const {name, value} = event.target
-        this.setState({[name]: value})
-    }
+    const handleChange = (event) => {
+        const {name, value} = event.target;
 
-    handleSubmit = (event) => {
+        switch(name) {
+            case 'name':
+                setName(value);
+                break;
+            case 'number':
+                setNumber(value);
+                break;
+            default:
+                return;
+
+        }
+        // this.setState({[name]: value})
+    };
+
+    const handleSubmit = (event) => {
         // const id = event.target.id;
         event.preventDefault();
-        const contactId = {...this.state, id: shortid.generate()};
-        this.props.addContacts(contactId);
+        const contactId = {name, number, id: shortid.generate()};
+        addContacts(contactId);
         event.target.reset();
     }
 
-    static propTypes = {
-        // handleChange: PropTypes.func,
-        addContacts: PropTypes.func.isRequired,
-    }
-
-    render() {
         return(
-            <form className={d.conteinerForm} onSubmit = {this.handleSubmit} >
+            <form className={d.conteinerForm} onSubmit = {handleSubmit} >
                 <div>
                     <h3 className={d.title}>Name</h3>
                     <input
@@ -42,7 +50,7 @@ class PhonebookForm extends Component {
                         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                         required
                         // value={this.state.name}
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                         className={d.input}
                     />
                 </div>
@@ -56,14 +64,18 @@ class PhonebookForm extends Component {
                         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                         required
                         // value={this.state.number} 
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                         className={d.input}
                     />        
                 </div>
                 <button className={d.btn} type='submit'>Add contact</button>
             </form>
         ) 
-    }
+}
+
+PhonebookForm.propTypes = {
+    // handleChange: PropTypes.func,
+    addContacts: PropTypes.func.isRequired,
 }
 
 export default PhonebookForm;
