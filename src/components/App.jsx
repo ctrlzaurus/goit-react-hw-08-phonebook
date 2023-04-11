@@ -1,68 +1,31 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import { contactsFromRedux } from 'redux/slice/selector';
 import PhonebookForm from './PhonebookForm/PhonebookForm';
 import ContactsList from './ContactsList/ContactsList';
-
-import contactsList from '../data/data.json';
 import FilterContacts from './FilterContacts/FilterContacts';
 
+// import contactsList from '../data/data.json';
 
-function App() {
-  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem('contacts')) || contactsList);
-  const [filter, setFilter] = useState('');
-
-  const addContacts = (contact) => {
-    if (contacts.find(el => el.name.toLowerCase() === contact.name.toLowerCase())) {
-      alert (`${contact.name} is already in contacts`);
-      return;
-    }
-    setContacts((prev) => ([...prev, contact]));
-    // this.setState((prev) => ({
-    //   contacts: [...prev.contacts, contact],
-    // }));
-  };
-
-  const removeBtn = (id) => {
-    setContacts((prev) => (prev.filter((el) => el.id !== id)));
-  };
- 
-  const updateFilter = (event) => {
-    setFilter(event.target.value.toLowerCase())
-    // this.setState({filter:event.target.value.toLowerCase()});
-  };
+const App = () => {
   
-  const inputFilterContacts = () => {
-    // const {contacts, filter} = this.state;
-    return contacts.filter(el => el.name.toLowerCase().includes(filter));
-  };
-
-  // componentDidMount() {
-  //   const contacts =
-  //     JSON.parse(localStorage.getItem('contacts')) || contactsList;
-
-  //   this.setState({ contacts });
-  // }
-
-  useEffect(() => {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-  },[contacts]);
-
-    // const filterList = inputFilterContacts();
+  const contacts = useSelector(contactsFromRedux);
 
     return(
       <div>
         <h2 className='mainTitle'>Phonebook</h2>
-        <PhonebookForm 
-          addContacts = {addContacts}
-        />
+        <PhonebookForm />
         <h2 className='mainTitle'>Contacts</h2>
-        <FilterContacts
-          updateFilter = {updateFilter}/> 
-        <ContactsList 
-          contacts = {inputFilterContacts()}
-          removeBtn = {removeBtn}/>
+        { <FilterContacts /> }
+        {contacts.lenghts !== 0 && <ContactsList contacts={contacts}/> }
       </div>
     )
 }
 
 export default App;
+
+// updateFilter = {updateFilter}
+
+// contacts = {inputFilterContacts()}
+//           removeBtn = {removeBtn}
