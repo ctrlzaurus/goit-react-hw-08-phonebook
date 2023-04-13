@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import shortid from 'shortid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/slice/contactsSlice';
-import { contactsFromRedux } from 'redux/slice/selector';
+import { addContact } from '../../redux/contacts/contactsOperations';
+import { itemContacts } from 'redux/contacts/contactsSelector';
 
 import d from './phonebookForm.module.css';
 
@@ -11,16 +10,16 @@ const PhonebookForm = () => {
     const [number, setNumber] = useState('');
   
     const dispatch = useDispatch();
-    const contacts = useSelector(contactsFromRedux);
+    const contacts = useSelector(itemContacts);
   
-    const repeatControlData = data => {
-      const savedNameArray = contacts.map(({ name }) => name.toLowerCase());
+    const repeatControlData = ({name, number}) => {
+      const savedName = contacts.map(({ name }) => name.toLowerCase());
   
-      if (savedNameArray.includes(data.name.toLowerCase())) {
-        alert(' Контакт вже є у телефонній книзі!');
+      if (savedName.includes(name.toLowerCase())) {
+        alert('Контакт вже існує');
         return;
       }
-      return dispatch(addContact(data.name, data.number));
+      return dispatch(addContact({name, number}));
     };
   
     const handleChange = event => {
@@ -39,11 +38,8 @@ const PhonebookForm = () => {
   
     const handleSubmit = event => {
       event.preventDefault();
-      const id = shortid.generate();
-      repeatControlData({ name, number, id });
-      // reset
-      setName('');
-      setNumber('');
+      repeatControlData({ name, number });
+      event.target.reset();
     };
 
     return(
@@ -56,7 +52,6 @@ const PhonebookForm = () => {
                     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     onChange={handleChange}
-                    value={name}
                     className={d.input}
                     required
                 />

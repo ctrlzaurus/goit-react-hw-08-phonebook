@@ -1,37 +1,38 @@
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/slice/contactsSlice';
-import { filterFromRedux } from 'redux/slice/selector';
+import { deleteContact } from '../../redux/contacts/contactsOperations';
+import { itemFilter, itemContacts } from '../../redux/contacts/contactsSelector';
 
 import d from './contactList.module.css';
 
-const ContactsList = ({contacts}) => {
+const ContactsList = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(filterFromRedux);
+  const filter = useSelector(itemFilter);
+  const contacts = useSelector(itemContacts);
 
-  const sortedContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
+  const sortedContacts = contacts.filter(({ name }) => 
+    name.toLowerCase().includes(filter.toLowerCase())
   );
 
       return (
         <>
           <ul className={d.containerContacts}>
-            {sortedContacts.map(({ name, number, id }) => (
-              <li className={d.titleCont} key={id}>
-                <p className={d.titleDesc}>{name}</p>
-                <p className={d.titleDesc}>{number}</p>
-                <button className={d.btn} onClick={() => dispatch(deleteContact(id))}>
+            {sortedContacts.map(contact => {
+              return (
+              <li className={d.titleCont} key={contact.id}>
+                <p className={d.titleDesc}>{contact.name}</p>
+                <p className={d.titleDesc}>{contact.number}</p>
+                <button 
+                  className={d.btn}
+                  onClick={() => dispatch(deleteContact(contact.id))}
+                >
                   Remove
                 </button>
               </li>
-            ))}
+              )
+            })}
           </ul>
         </>
       );
 };
-
-ContactsList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-}
 
 export default ContactsList;

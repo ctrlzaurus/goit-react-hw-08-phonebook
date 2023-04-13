@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { performFilter } from 'redux/slice/filterSlise';
+import { performFilter } from '../../redux/contacts/contactsSlice';
 
 import d from './filterContacts.module.css';
 
 const FilterContacts = () => {
     const dispatch = useDispatch();
     const filter = useSelector(state => state.filter);
-    const hendleFilter = e => {
-        dispatch(performFilter(e.currentTarget.value));
+    const hendleFilter = event => {
+        dispatch(performFilter(event.currentTarget.value));
     };
 
     return (
