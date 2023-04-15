@@ -10,7 +10,6 @@ import { selectorIsAuth } from 'redux/auth/authSelector';
 const getACtiveClass = ({ isActive }) => clsx(d.link, isActive && d.active);
 
 const MainNav = () => {
-    // const location = useLocation();
     const isAuth = useSelector(selectorIsAuth);
 
     const dispatch = useDispatch();
