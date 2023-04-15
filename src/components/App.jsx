@@ -1,7 +1,6 @@
 import PhonebookPage from "../pages/PhonebookPage";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, Navigate } from "react-router-dom";
-// import { routes } from "routes";
 import { selectorIsAuth, selectorToken } from '../redux/auth/authSelector';
 import MainNav from "./MainNav/MainNav";
 import RegisterPage from "pages/RegisterPage";
