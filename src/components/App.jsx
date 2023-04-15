@@ -1,9 +1,3 @@
-// import { useDispatch } from 'react-redux';
-// import PhonebookForm from './PhonebookForm/PhonebookForm';
-// import ContactsList from './ContactsList/ContactsList';
-// import FilterContacts from './FilterContacts/FilterContacts';
-// import { fetchContacts } from '../redux/contacts/contactsOperations';
-// import { useEffect } from 'react';
 import PhonebookPage from "../pages/PhonebookPage";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, Navigate } from "react-router-dom";
