@@ -21,7 +21,7 @@ const PublicRoute = ({component, redirectTo = '/contacts'}) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  
+  // eslint-disable-next-line
   const isAuth = useSelector(selectorIsAuth);
   const token = useSelector(selectorToken);
 
